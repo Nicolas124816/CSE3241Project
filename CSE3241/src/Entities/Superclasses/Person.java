@@ -1,12 +1,13 @@
 package Entities.Superclasses;
 
 public class Person {
+    
     private String firstName;
     private String lastName;
     private String address;
     private int phone;
     private String email;
-    
+
     public String getFirstName() {
         return firstName;
     }
