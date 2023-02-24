@@ -8,6 +8,14 @@ public class Person {
     private int phone;
     private String email;
 
+    public Person(String firstName, String lastName, String address, int phone, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
+    
     public String getFirstName() {
         return firstName;
     }

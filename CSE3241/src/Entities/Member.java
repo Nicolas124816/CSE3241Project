@@ -6,14 +6,20 @@ import java.util.List;
 import Entities.Superclasses.Person;
 
 public class Member extends Person {
-    private Date startDate;
+    private String startDate;
     private List<Double> warehouseDistances;
     private String userID;
     
-    public Date getStartDate() {
+    public Member(String firstName, String lastName, String address, int phone, String email, String startDate, List<Double> warehouseDistances, String userID) {
+        super(firstName, lastName, address, phone, email);
+        this.startDate = startDate;
+        this.warehouseDistances = warehouseDistances;
+        this.userID = userID;
+    }
+    public String getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     public List<Double> getWarehouseDistances() {

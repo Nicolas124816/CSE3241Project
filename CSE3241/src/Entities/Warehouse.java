@@ -1,9 +1,8 @@
 package Entities;
 
-import java.util.UUID;
 
 public class Warehouse {
-    private UUID warehouseID;
+    private int warehouseID;
     private String city;
     private String address;
     private int phone;
@@ -11,10 +10,19 @@ public class Warehouse {
     //calculated attributes:
     //storageCapacity
     //droneCapacity
-    public UUID getWarehouseID() {
+    
+    public Warehouse(int warehouseID, String city, String address, int phone, String managerName) {
+        this.warehouseID = warehouseID;
+        this.city = city;
+        this.address = address;
+        this.phone = phone;
+        this.managerName = managerName;
+    }
+    public int getWarehouseID() {
         return warehouseID;
     }
-    public void setWarehouseID(UUID warehouseID) {
+
+    public void setWarehouseID(int warehouseID) {
         this.warehouseID = warehouseID;
     }
     public String getCity() {

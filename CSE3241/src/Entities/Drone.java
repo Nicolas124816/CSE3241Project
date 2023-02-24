@@ -9,6 +9,10 @@ public class Drone extends Item {
     private double distanceAutonomy;
     private double maxSpeed;
     private String status;
+
+    public Drone(Item item) {
+        super(item);
+    }
     public int getFleetID() {
         return fleetID;
     }
