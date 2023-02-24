@@ -19,15 +19,16 @@ public class RecordUtil {
         System.out.println("Enter address: ");
         String address = scan.nextLine();
         System.out.println("Enter phone number (no dashes or spaces): ");
-        int phone = scan.nextInt();
+        String phone = scan.nextLine();
         System.out.println("Enter email address: ");
         String email = scan.nextLine();
         System.out.println("Enter the join date for the member: ");
         String startDate = scan.nextLine();
         System.out.println("Enter the member ID: ");
         String id = scan.nextLine();
-
-        memberList.add(new Member(firstName, lastName, address, phone, email, startDate, null, id));
+        Member added = new Member(firstName, lastName, address, phone, email, startDate, null, id);
+        System.out.println("Added new member: \n" + added.toString());
+        memberList.add(added);
     }
 
     public static void addWarehouse(List<Warehouse> warehouseList, Scanner scan) {
@@ -112,17 +113,20 @@ public class RecordUtil {
 
     public static void deleteMember(List<Member> memberList, Scanner scan) {
         Member delete = searchMember(memberList, scan);
+        System.out.println("Deleted member: \n" + delete.toString());
         memberList.remove(delete);
 
     }
 
     public static void deleteWarehouse(List<Warehouse> warehouseList, Scanner scan) {
         Warehouse delete = searcWarehouse(warehouseList, scan);
+        System.out.println("Deleted warehouse: \n" + delete.toString());
         warehouseList.remove(delete);
     }
 
     public static void deleteEquipment(List<Equipment> equipmentList, Scanner scan) {
         Equipment delete = searchEquipment(equipmentList, scan);
+        System.out.println("Deleted equipment: \n" + delete.toString());
         equipmentList.remove(delete);
     }
 }

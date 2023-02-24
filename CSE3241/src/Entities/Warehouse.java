@@ -50,6 +50,12 @@ public class Warehouse {
         this.managerName = managerName;
     }
     
+    @Override
+    public String toString() {
+        String warehouse = "Warehouse ID: " + warehouseID + "\nWarehouse city: " + city + "\nWarehouse addess: " + address 
+        + "\nWarehouse phone number: " + phone + "\nManager name: " + managerName;
+        return warehouse;
+    }
     //TODO: methods for calculating the derived attributes mentioned above
 
     

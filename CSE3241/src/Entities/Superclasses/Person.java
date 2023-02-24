@@ -5,17 +5,17 @@ public class Person {
     private String firstName;
     private String lastName;
     private String address;
-    private int phone;
+    private String phone;
     private String email;
 
-    public Person(String firstName, String lastName, String address, int phone, String email) {
+    public Person(String firstName, String lastName, String address, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
         this.email = email;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -34,10 +34,10 @@ public class Person {
     public void setAddress(String address) {
         this.address = address;
     }
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     public String getEmail() {
@@ -47,5 +47,11 @@ public class Person {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        String person = "First Name: " + firstName + "\nLast Name: " + lastName + "\nAddress: " + address + "\nPhone number: " + phone
+        + "\nEmail Address: " + email;
+        return person;
+    }
     
 }

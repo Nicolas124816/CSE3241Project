@@ -46,5 +46,12 @@ public class Equipment extends Item {
         this.sizes = sizes;
     }
 
+    @Override
+    public String toString() {
+        String item = super.toString();
+        item += "\nType: " + type + "\nArrival Date: " + arrivalDate + "\nWeight: " + weight + "\nSizes: " + sizes;
+        return item;
+    }
+
     
 }

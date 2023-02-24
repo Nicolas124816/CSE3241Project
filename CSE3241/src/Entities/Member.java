@@ -1,6 +1,5 @@
 package Entities;
 
-import java.util.Date;
 import java.util.List;
 
 import Entities.Superclasses.Person;
@@ -10,7 +9,7 @@ public class Member extends Person {
     private List<Double> warehouseDistances;
     private String userID;
     
-    public Member(String firstName, String lastName, String address, int phone, String email, String startDate, List<Double> warehouseDistances, String userID) {
+    public Member(String firstName, String lastName, String address, String phone, String email, String startDate, List<Double> warehouseDistances, String userID) {
         super(firstName, lastName, address, phone, email);
         this.startDate = startDate;
         this.warehouseDistances = warehouseDistances;
@@ -35,6 +34,11 @@ public class Member extends Person {
         this.userID = userID;
     }
 
-    
+    @Override
+    public String toString() {
+        String person = super.toString();
+        person += "\nStart Date: " + startDate + "\nWarehouse Distances: " + warehouseDistances + "\nUser ID: " + userID;
+        return person;
+    }
     
 }

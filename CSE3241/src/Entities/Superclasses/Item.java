@@ -3,6 +3,8 @@ package Entities.Superclasses;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.naming.directory.SearchResult;
+
 public class Item {
     private int inventoryID;
     private String expDate;
@@ -76,6 +78,13 @@ public class Item {
     }
     public void setSerialNumber(int serialNumber) {
         this.serialNumber = serialNumber;
+    }
+
+    @Override
+    public String toString() {
+        String item = "Inventory ID: " + inventoryID + "\nExpiration date: " + expDate + "\nDescription: " + description +
+        "\nManufacturere: " + manufacturer + "\nModel Number: " + modelNumber + "\nYear: " + year + "Serial Number: " + serialNumber;
+        return item;
     }
 
     
