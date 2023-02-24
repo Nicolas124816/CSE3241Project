@@ -5,13 +5,13 @@ public class Warehouse {
     private int warehouseID;
     private String city;
     private String address;
-    private int phone;
+    private String phone;
     private String managerName;
     //calculated attributes:
     //storageCapacity
     //droneCapacity
     
-    public Warehouse(int warehouseID, String city, String address, int phone, String managerName) {
+    public Warehouse(int warehouseID, String city, String address, String phone, String managerName) {
         this.warehouseID = warehouseID;
         this.city = city;
         this.address = address;
@@ -37,10 +37,10 @@ public class Warehouse {
     public void setAddress(String address) {
         this.address = address;
     }
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     public String getManagerName() {

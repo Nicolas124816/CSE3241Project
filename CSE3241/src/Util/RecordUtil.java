@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.text.StyledEditorKit;
+
 import Entities.Equipment;
 import Entities.Member;
 import Entities.Warehouse;
@@ -34,16 +36,18 @@ public class RecordUtil {
     public static void addWarehouse(List<Warehouse> warehouseList, Scanner scan) {
         System.out.println("Enter warehouse ID: ");
         int id = scan.nextInt();
+        scan.nextLine();
         System.out.println("Enter warehouse city: ");
         String city = scan.nextLine();
         System.out.println("Enter the address: ");
         String address = scan.nextLine();
         System.out.println("Enter the warehouse phone number (no dashes or spaces): ");
-        int phone = scan.nextInt();
+        String phone = scan.nextLine();
         System.out.println("Enter the manager name");
         String manager = scan.nextLine();
-
-        warehouseList.add(new Warehouse(id, city, address, phone, manager));
+        Warehouse added = new Warehouse(id, city, address, phone, manager);
+        System.out.println("Added new warehouse: \n" + added.toString());
+        warehouseList.add(added);
     }
 
     public static void addEquipment(List<Equipment> equipmentsList, Scanner scan) {
@@ -72,7 +76,9 @@ public class RecordUtil {
         List<String> sizes = new ArrayList<>();
         sizes.add(size);
         Item equipmentItem = new Item(id, date, desc, manufacturer, modelNum, year, serial);
-        equipmentsList.add(new Equipment(equipmentItem, type, arrivalDate, weight, sizes));
+        Equipment added = new Equipment(equipmentItem, type, arrivalDate, weight, sizes);
+        System.out.println("Added new equipment: \n" + added.toString());
+        equipmentsList.add(added);
 
     }
 
