@@ -5,6 +5,7 @@ import java.util.Scanner;
 import Util.RecordUtil;
 import Entities.Equipment;
 import Entities.Warehouse;
+import Input.InputHelper;
 import Entities.Member;
 
 public class App {
@@ -14,8 +15,8 @@ public class App {
         List<Warehouse> warehouseList = new ArrayList<Warehouse>();
         List<Equipment> equipmentList = new ArrayList<Equipment>();
         while(true) {
-            int operation = getOperationOption(scan);
-            int entity = getEntityOption(scan);
+            int operation = InputHelper.getOperationOption(scan);
+            int entity = InputHelper.getEntityOption(scan);
             switch(operation) {
                 case 1:
                     switch(entity) {
@@ -74,20 +75,6 @@ public class App {
 
 
         }
-    }
-
-    private static int getOperationOption(Scanner scan) {
-        System.out.println("Select one of the options (1, 2, or 3): \n1.) Add New Records \n2.) Delete Existing Records \n3.) Search Existing Records \n");
-        int option = scan.nextInt();
-        scan.nextLine();
-        return option;
-    }
-
-    private static int getEntityOption(Scanner scan) {
-        System.out.println("Select one of the options (1, 2, or 3): \n1.) Members \n2.) Warehouses \n3.) Equipment");
-        int option = scan.nextInt();
-        scan.nextLine();
-        return option;
     }
 
     
