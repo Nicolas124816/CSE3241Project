@@ -1,6 +1,7 @@
 CREATE TABLE Container_Info(
-   PackageID     INTEGER  NOT NULL PRIMARY KEY 
+   PackageID     INTEGER  NOT NULL
   ,Serial_Number INTEGER  NOT NULL
+  ,PRIMARY KEY(PackageID, Serial_Number)
 );
 INSERT INTO Container_Info(PackageID,Serial_Number) VALUES (1,723);
 INSERT INTO Container_Info(PackageID,Serial_Number) VALUES (2,724);
@@ -279,10 +280,11 @@ INSERT INTO Person(Email,First_Name,Last_Name,Address,Phone) VALUES ('adamsaleh@
 INSERT INTO Person(Email,First_Name,Last_Name,Address,Phone) VALUES ('addisonsmith@gmail.com','Addison','Smith','220 Blake Ave',6145195235);
 
 CREATE TABLE Rents(
-   Email         VARCHAR(24) NOT NULL PRIMARY KEY
+   Email         VARCHAR(24) NOT NULL
   ,Serial_Number INTEGER  NOT NULL
   ,Checkout_Date DATE  NOT NULL
   ,Return_Date   DATE  NOT NULL
+  ,PRIMARY KEY(Email, Serial_Number)
 );
 INSERT INTO Rents(Email,Serial_Number,Checkout_Date,Return_Date) VALUES ('gracejiang@gmail.com',7851,'3/11/23','3/21/23');
 INSERT INTO Rents(Email,Serial_Number,Checkout_Date,Return_Date) VALUES ('hamzukashubeck@gmail.com',7852,'3/12/23','3/22/23');
@@ -335,8 +337,9 @@ INSERT INTO Review(Review_Number,Serial_Number,Rating,Comment,Email) VALUES (19,
 INSERT INTO Review(Review_Number,Serial_Number,Rating,Comment,Email) VALUES (20,80,8.1,'Good service','breecepingle@gmail.com');
 
 CREATE TABLE Shipment(
-   PackageID     INTEGER  NOT NULL PRIMARY KEY 
+   PackageID     INTEGER  NOT NULL
   ,Serial_Number INTEGER  NOT NULL
+  ,PRIMARY KEY(PackageID, Serial_Number)
 );
 INSERT INTO Shipment(PackageID,Serial_Number) VALUES (1,7851);
 INSERT INTO Shipment(PackageID,Serial_Number) VALUES (2,7852);
@@ -445,8 +448,9 @@ INSERT INTO Warehouse(WarehouseID,City,Address,Phone,Manager_name) VALUES (19,'N
 INSERT INTO Warehouse(WarehouseID,City,Address,Phone,Manager_name) VALUES (20,'San Jose','3 Upham Pass','671-999-8726','Griswold Olanda');
 
 CREATE TABLE Workplace(
-   Email       VARCHAR(27) NOT NULL PRIMARY KEY
+   Email       VARCHAR(27) NOT NULL
   ,WarehouseID INTEGER  NOT NULL
+  ,PRIMARY KEY(Email, WarehouseID)
 );
 INSERT INTO Workplace(Email,WarehouseID) VALUES ('alexbook@gmail.com',1);
 INSERT INTO Workplace(Email,WarehouseID) VALUES ('nickashbaugh@gmail.com',2);

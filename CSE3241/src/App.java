@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Util.AddRecordUtil;
 import Util.RecordUtil;
 import Entities.Equipment;
 import Entities.Warehouse;
@@ -16,23 +17,9 @@ public class App {
         List<Equipment> equipmentList = new ArrayList<Equipment>();
         while(true) {
             int operation = InputHelper.getOperationOption(scan);
-            int entity = InputHelper.getEntityOption(scan);
             switch(operation) {
                 case 1:
-                    switch(entity) {
-                        case 1:
-                            RecordUtil.addMember(memberList, scan);
-                            continue;
-                        case 2:
-                            RecordUtil.addWarehouse(warehouseList, scan);
-                            continue;
-                        case 3:
-                            RecordUtil.addEquipment(equipmentList, scan);
-                            continue;
-                        default:
-                            System.out.println("You entered an incorrect entity option");
-                            continue;
-                    }
+                    AddRecordUtil.addRecord();
                 case 2:
                     switch(entity) {
                         case 1:
