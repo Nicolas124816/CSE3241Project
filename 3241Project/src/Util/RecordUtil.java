@@ -7,14 +7,13 @@ import Entities.Member;
 import Entities.Warehouse;
 import Input.InputHelper;
 
-public class AddRecordUtil {
-    
-    public static void addRecord() {
-        Scanner scan = new Scanner(System.in);
+public class RecordUtil {
+
+    public static void addRecord(Scanner scan) {
         int entity = InputHelper.getEntityOption(scan);
-        switch(entity) {
+        switch (entity) {
             case 1:
-                MemberRecordUtil.addRecord();
+                MemberRecordUtil.addRecord(scan);
                 break;
             case 2:
                 WarehouseRecordUtil.addRecord();
@@ -28,12 +27,11 @@ public class AddRecordUtil {
         }
     }
 
-    public static void deleteRecord() {
-        Scanner scan = new Scanner(System.in);
+    public static void deleteRecord(Scanner scan) {
         int entity = InputHelper.getEntityOption(scan);
-        switch(entity) {
+        switch (entity) {
             case 1:
-                MemberRecordUtil.deleteRecord();
+                MemberRecordUtil.deleteRecord(scan);
                 break;
             case 2:
                 WarehouseRecordUtil.deleteRecord();
@@ -47,12 +45,11 @@ public class AddRecordUtil {
         }
     }
 
-    public static void updateRecord() {
-        Scanner scan = new Scanner(System.in);
+    public static void updateRecord(Scanner scan) {
         int entity = InputHelper.getEntityOption(scan);
-        switch(entity) {
+        switch (entity) {
             case 1:
-                MemberRecordUtil.updateRecord();
+                MemberRecordUtil.updateRecord(scan);
                 break;
             case 2:
                 WarehouseRecordUtil.updateRecord();
@@ -66,28 +63,27 @@ public class AddRecordUtil {
         }
     }
 
-    public static void searchRecord() {
-        Scanner scan = new Scanner(System.in);
+    public static void searchRecord(Scanner scan) {
         int entity = InputHelper.getEntityOption(scan);
-        switch(entity) {
+        switch (entity) {
             case 1:
-                Member foundMember = MemberRecordUtil.searchRecord();
+                Member foundMember = MemberRecordUtil.searchRecord(scan);
                 System.out.println("Found member: \n" + foundMember.toString());
                 break;
             case 2:
                 Warehouse foundWarehouse = WarehouseRecordUtil.searchRecord();
-                System.out.println("Found warehouse: \n:" + foundWarehouse.toString());
+                System.out.println(
+                        "Found warehouse: \n:" + foundWarehouse.toString());
                 break;
             case 3:
                 Equipment foundEquipment = EquipmentRecordUtil.searchRecord();
-                System.out.println("Found equipment: \n" + foundEquipment.toString());
+                System.out.println(
+                        "Found equipment: \n" + foundEquipment.toString());
                 break;
             default:
                 System.out.println("You entered an incorrect entity option\n");
                 break;
         }
     }
-
-
 
 }
