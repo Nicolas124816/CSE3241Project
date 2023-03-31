@@ -30,7 +30,6 @@ public class MemberRecordUtil {
         scan.nextLine();
         Member added = new Member(firstName, lastName, address, phone, email,
                 startDate, null, id);
-        System.out.println("Added new member: \n" + added.toString());
         Connection conn = DBConnection.conn;
         try {
             PreparedStatement stmt1 = conn.prepareStatement(
@@ -51,6 +50,7 @@ public class MemberRecordUtil {
         } catch (SQLException e) {
             System.out.println(e);
         }
+        System.out.println("Added new member: \n" + added.toString());
 
     }
 
@@ -70,7 +70,42 @@ public class MemberRecordUtil {
 
     public static void updateRecord(Scanner scan) {
         Member update = searchRecord(scan);
-        //modify member object and store in database
+        String email = update.getEmail();
+        System.out.println("Enter first name: ");
+        String firstName = scan.nextLine();
+        System.out.println("Enter last name: ");
+        String lastName = scan.nextLine();
+        System.out.println("Enter address: ");
+        String address = scan.nextLine();
+        System.out.println("Enter phone number (no dashes or spaces): ");
+        String phone = scan.nextLine();
+        System.out.println("Enter the join date (yyyy-MM-dd) for the member: ");
+        String startDate = scan.nextLine();
+        System.out.println("Enter the member ID: ");
+        int id = scan.nextInt();
+        scan.nextLine();
+        Connection conn = DBConnection.conn;
+        try {
+            PreparedStatement stmt1 = conn.prepareStatement("UPDATE Person "
+                    + "SET First_Name=?, Last_Name=?, Address=?, Phone=?"
+                    + "WHERE Email=?");
+            stmt1.setString(1, firstName);
+            stmt1.setString(2, lastName);
+            stmt1.setString(3, address);
+            stmt1.setString(4, phone);
+            stmt1.setString(5, email);
+            stmt1.execute();
+
+            PreparedStatement stmt2 = conn.prepareStatement("UPDATE Member "
+                    + "SET start_date=?, user_ID=?" + "WHERE Email=?");
+            stmt2.setDate(1, DateHelper.getDate(startDate));
+            stmt2.setInt(2, id);
+            stmt2.setString(3, email);
+            stmt2.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        System.out.println("Successfully updated member with email: " + email);
     }
 
     public static Member searchRecord(Scanner scan) {
@@ -79,7 +114,7 @@ public class MemberRecordUtil {
         Connection conn = DBConnection.conn;
         Member found = null;
         try {
-            System.out.println(conn.getMetaData());
+
             PreparedStatement stmt1 = conn.prepareStatement(
                     "SELECT First_Name, Last_Name, Address, Phone FROM Person\n WHERE Email=?");
             stmt1.setString(1, email);
@@ -89,6 +124,8 @@ public class MemberRecordUtil {
             String lastName = rSet.getString("Last_Name");
             String address = rSet.getString("Address");
             String phone = rSet.getString("Phone");
+            rSet.close();
+            stmt1.close();
 
             PreparedStatement stmt2 = conn.prepareStatement(
                     "SELECT start_date, user_ID FROM Member WHERE Email=?");

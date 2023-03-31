@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import Input.InputHelper;
+import Util.ExtraQueries;
 import Util.RecordUtil;
 
 public class App {
@@ -45,6 +46,12 @@ public class App {
                     break;
                 case 3:
                     RecordUtil.searchRecord(scan);
+                    break;
+                case 4:
+                    RecordUtil.updateRecord(scan);
+                    break;
+                case 5:
+                    ExtraQueries.runExtraQueries(scan);
                     break;
                 default:
                     System.out.println(
