@@ -35,7 +35,9 @@ public class InputHelper {
                 + "8.) Find the serial number and type of equipment that was purchased by members who have been members for 5 or\n"
                 + "more years\n"
                 + "9.) Find all material of shipping containers that have carried equipment over 5 lbs");
-        return scan.nextInt();
+        int option = scan.nextInt();
+        scan.nextLine();
+        return option;
     }
 
 }
