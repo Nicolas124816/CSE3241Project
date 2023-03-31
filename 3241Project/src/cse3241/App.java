@@ -34,7 +34,6 @@ public class App {
                     .println("There was a problem connecting to the database.");
         }
         DBConnection.setConn(conn);
-
         while (true) {
             int operation = InputHelper.getOperationOption(scan);
             switch (operation) {

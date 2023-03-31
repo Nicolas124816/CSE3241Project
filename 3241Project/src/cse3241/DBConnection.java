@@ -6,8 +6,8 @@ public class DBConnection {
 
     public static Connection conn;
 
-    static void setConn(Connection conn) {
-        DBConnection.conn = conn;
+    public static void setConn(Connection newConn) {
+        conn = newConn;
     }
 
 }
