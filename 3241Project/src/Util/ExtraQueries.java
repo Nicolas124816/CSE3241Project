@@ -16,6 +16,9 @@ public class ExtraQueries {
             case 1:
                 extraQuery1(scan);
                 break;
+            case 2:
+                extraQuery2(scan);
+                break;
             default:
                 System.out.println("You didn't enter a valid option");
         }
@@ -39,7 +42,32 @@ public class ExtraQueries {
             stmt.setInt(2, year);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("description"));
+                System.out.println(
+                        "Item description: " + rs.getString("description"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+
+    private static void extraQuery2(Scanner scan) {
+        System.out
+                .println("Enter member ID for their watering equipment info: ");
+        int id = scan.nextInt();
+        scan.nextLine();
+        String sql = "SELECT Equipment.Serial_Number, Checkout_date\n"
+                + "FROM Equipment, Rents, Member\n"
+                + "WHERE Equipment.Serial_Number = Rents.Serial_Number\n"
+                + "AND Equipment.Type = 'Watering'\n"
+                + "AND Member.user_ID = ?;";
+        try {
+            PreparedStatement stmt = DBConnection.conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("Info: " + rs.getInt("Serial_Number")
+                        + rs.getDate("Checkout_date"));
             }
         } catch (SQLException e) {
             System.out.println(e);
