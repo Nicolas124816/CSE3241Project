@@ -9,9 +9,9 @@ public class Member extends Person {
     private List<Double> warehouseDistances;
     private int userID;
 
-    public Member(String firstName, String lastName, String address, int phone,
-            String email, String startDate, List<Double> warehouseDistances,
-            int userID) {
+    public Member(String firstName, String lastName, String address,
+            String phone, String email, String startDate,
+            List<Double> warehouseDistances, int userID) {
         super(firstName, lastName, address, phone, email);
         this.startDate = startDate;
         this.warehouseDistances = warehouseDistances;

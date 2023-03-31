@@ -5,11 +5,11 @@ public class Person {
     private String firstName;
     private String lastName;
     private String address;
-    private int phone;
+    private String phone;
     private String email;
 
-    public Person(String firstName, String lastName, String address, int phone,
-            String email) {
+    public Person(String firstName, String lastName, String address,
+            String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -41,11 +41,11 @@ public class Person {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return this.phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
