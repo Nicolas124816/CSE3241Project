@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Scanner;
 
 import Entities.Employee;
@@ -23,13 +22,13 @@ public class EmployeeRecordUtil {
         System.out
                 .println("Enter the start date (yyyy-MM-dd) of the employee: ");
         String std = scan.nextLine();
-        Date startDate = DateHelper.getDate(std);
+        java.sql.Date startDate = DateHelper.getDate(std);
         scan.nextLine();
 
         Employee added = new Employee();
         added.setSalary(salary);
         added.setPosition(position);
-        added.setStartDate(startDate);
+        added.setStartDate(startDate.toString());
 
         System.out.println("Added new employee: \n" + added.toString());
         Connection conn = DBConnection.conn;
@@ -103,7 +102,6 @@ public class EmployeeRecordUtil {
         Connection conn = DBConnection.conn;
         Employee found = null;
         try {
-            System.out.println(conn.getMetaData());
             /*
              * PreparedStatement stmt1 = conn.prepareStatement(
              * "SELECT First_Name, Last_Name, Address, Phone FROM Person\n WHERE Email=?"
@@ -122,7 +120,7 @@ public class EmployeeRecordUtil {
             stmt2.setString(1, email);
             ResultSet rSet = stmt2.executeQuery();
             rSet.next();
-            java.sql.Date startDate = rSet.getDate("start_date");
+            String startDate = rSet.getString("start_date");
             int salary = rSet.getInt("salary");
             String position = rSet.getString("Position");
             Employee newEm = new Employee();

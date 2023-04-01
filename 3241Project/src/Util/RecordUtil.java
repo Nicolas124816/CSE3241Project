@@ -2,6 +2,7 @@ package Util;
 
 import java.util.Scanner;
 
+import Entities.Employee;
 import Entities.Equipment;
 import Entities.Member;
 import Entities.Warehouse;
@@ -21,6 +22,9 @@ public class RecordUtil {
             case 3:
                 EquipmentRecordUtil.addRecord();
                 break;
+            case 6:
+                EmployeeRecordUtil.addRecord(scan);
+                break;
             default:
                 System.out.println("You entered an incorrect entity option");
                 break;
@@ -39,6 +43,9 @@ public class RecordUtil {
             case 3:
                 EquipmentRecordUtil.deleteRecord();
                 break;
+            case 6:
+                EmployeeRecordUtil.addRecord(scan);
+                break;
             default:
                 System.out.println("You entered an incorrect entity option");
                 break;
@@ -56,6 +63,9 @@ public class RecordUtil {
                 break;
             case 3:
                 EquipmentRecordUtil.updateRecord();
+                break;
+            case 6:
+                EmployeeRecordUtil.updateRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option");
@@ -79,6 +89,10 @@ public class RecordUtil {
                 Equipment foundEquipment = EquipmentRecordUtil.searchRecord();
                 System.out.println(
                         "Found equipment: \n" + foundEquipment.toString());
+                break;
+            case 6:
+                Employee emp = EmployeeRecordUtil.searchRecord(scan);
+                System.out.println("Found employee: " + emp.toString());
                 break;
             default:
                 System.out.println("You entered an incorrect entity option\n");

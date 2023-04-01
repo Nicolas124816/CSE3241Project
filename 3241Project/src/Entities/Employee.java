@@ -1,11 +1,9 @@
 package Entities;
 
-import java.util.Date;
-
 public class Employee {
     private int salary;
     private String position;
-    private Date startDate;
+    private String startDate;
 
     public int getSalary() {
         return this.salary;
@@ -23,12 +21,18 @@ public class Employee {
         this.position = position;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return this.startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Salary: " + this.salary + "\n Position: " + this.position
+                + "\n Start Date: " + this.startDate;
     }
 
 }

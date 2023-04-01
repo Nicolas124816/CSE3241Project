@@ -16,8 +16,10 @@ public class InputHelper {
     }
 
     public static int getEntityOption(Scanner scan) {
-        System.out.println(
-                "Select one of the options (1, 2, or 3): \n1.) Members \n2.) Warehouses \n3.) Equipment");
+        System.out.println("Select one of the options (1, 2, or 3): \n"
+                + "1.) Members \n" + "2.) Warehouses \n" + "3.) Equipment\n"
+                + "4.) Drones \n" + "5.) Reviews \n" + "6.) Employees\n"
+                + "7.) Shipping Containers \n");
         int option = scan.nextInt();
         scan.nextLine();
         return option;

@@ -132,7 +132,7 @@ public class MemberRecordUtil {
             stmt2.setString(1, email);
             rSet = stmt2.executeQuery();
             rSet.next();
-            java.sql.Date startDate = rSet.getDate("start_date");
+            String startDate = rSet.getString("start_date");
             int userID = rSet.getInt("user_ID");
             return new Member(firstName, lastName, address, phone, email,
                     startDate.toString(), null, userID);
