@@ -1,0 +1,157 @@
+CREATE TABLE WAREHOUSE(
+   warehouse_id INTEGER	    NOT NULL PRIMARY KEY 
+  ,city         VARCHAR(13) NOT NULL
+  ,address      VARCHAR(23) NOT NULL
+  ,phone        VARCHAR(12) NOT NULL
+  ,manager_name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE PERSON(
+   email      VARCHAR(27) NOT NULL PRIMARY KEY
+  ,first_name VARCHAR(9)  NOT NULL
+  ,last_name  VARCHAR(10) NOT NULL
+  ,address    VARCHAR(20) NOT NULL
+  ,phone      INTEGER  	  NOT NULL
+);
+
+CREATE TABLE MEMBER(
+   email      VARCHAR(27) NOT NULL PRIMARY KEY
+  ,start_date DATE  	  NOT NULL
+  ,user_id    INTEGER  	  NOT NULL,
+foreign key(email) references PERSON(email)
+);
+
+CREATE TABLE EMPLOYEE(
+   email      VARCHAR(27) NOT NULL PRIMARY KEY
+  ,salary     INTEGER     NOT NULL
+  ,start_date DATE  	  NOT NULL
+  ,position   VARCHAR(15) NOT NULL,
+foreign key(email) references PERSON(email)
+);
+
+CREATE TABLE WAREHOUSE_ORDER(
+   order_number	INTEGER  	NOT NULL PRIMARY KEY
+  ,warehouse_id   INTEGER  	NOT NULL
+  ,element_type 	VARCHAR(9) 	NOT NULL
+  ,num_items    	INTEGER  	NOT NULL
+  ,cost         	INTEGER  	NOT NULL
+  ,eta          	DATE  	NOT NULL
+  ,description  	VARCHAR(20) NOT NULL
+  ,foreign key(warehouse_id) references WAREHOUSE(warehouse_id)
+);
+
+CREATE TABLE ITEM_MODEL(
+   model_number INTEGER 	NOT NULL PRIMARY KEY 
+  ,year         INTEGER  	NOT NULL
+  ,manufacturer VARCHAR(13) 	NOT NULL
+);
+
+CREATE TABLE ITEM(
+   serial_number INTEGER 	NOT NULL PRIMARY KEY
+  ,model_number  INTEGER 	NOT NULL
+  ,description   VARCHAR(27) 	NOT NULL
+  ,warehouse_id  INTEGER  	NOT NULL
+  ,order_number  INTEGER
+  ,exp_date	     DATE
+  ,foreign key(warehouse_id) references WAREHOUSE(warehouse_id)
+  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number)
+  ,foreign key(model_number) references ITEM_MODEL(model_number)
+);
+
+CREATE TABLE DRONE(
+   serial_number     INTEGER  	NOT NULL PRIMARY KEY 
+  ,weight_capacity   INTEGER  	NOT NULL
+  ,volume_capacity   INTEGER 		NOT NULL
+  ,distance_autonomy INTEGER  	NOT NULL
+  ,max_speed         INTEGER		NOT NULL
+  ,status            VARCHAR(8) 	NOT NULL
+  ,fleet_id          INTEGER  	NOT NULL
+  ,foreign key(serial_number) references ITEM(serial_number)
+);
+
+CREATE TABLE EQUIPMENT(
+   serial_number 	INTEGER  	NOT NULL PRIMARY KEY 
+  ,type         	VARCHAR(13) NOT NULL
+  ,weight      	INTEGER  	NOT NULL
+  ,size        	VARCHAR(8) 	NOT NULL
+  ,order_number 	INTEGER
+  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number)
+  ,foreign key(serial_number) references ITEM(serial_number)
+);
+
+CREATE TABLE REVIEW(
+   email   	    	VARCHAR(27) 	NOT NULL 
+  ,serial_number 	INTEGER 		NOT NULL
+  ,rating       	NUMERIC(3,1) 	NOT NULL
+  ,comment      	VARCHAR(38) 	NOT NULL
+  ,primary key(email, serial_number)
+  ,foreign key(serial_number) references EQUIPMENT(serial_number)
+  ,foreign key(email) references MEMBER(email)
+);
+
+CREATE TABLE SHIPPING_CONTAINER(
+   package_id 	INTEGER  	NOT NULL PRIMARY KEY 
+  ,volume    	INTEGER  	NOT NULL
+  ,weight    	INTEGER  	NOT NULL
+  ,material  	VARCHAR(9) 	NOT NULL
+);
+
+CREATE TABLE WORKPLACE(
+   email       	VARCHAR(27) NOT NULL
+  ,warehouse_id 	INTEGER  	NOT NULL
+  ,primary key(email, warehouse_id)
+  ,foreign key(email) references EMPLOYEE(email)
+  ,foreign key(warehouse_id) references WAREHOUSE(warehouse_id)
+);
+
+CREATE TABLE RENTS(
+   email        	VARCHAR(27) NOT NULL 
+  ,serial_number 	INTEGER  	NOT NULL
+  ,checkout_date 	DATE		NOT NULL
+  ,return_date   	DATE   	NOT NULL
+  ,primary key(email, serial_number)
+  ,foreign key(email) references MEMBER(email)
+  ,foreign key(serial_number) references EQUIPMENT(serial_number)
+);
+
+CREATE TABLE CONTAINER_INFO(
+   package_id   			INTEGER  NOT NULL 
+  ,equipment_serial_number	INTEGER  NOT NULL
+  ,primary key(package_id, equipment_serial_number)
+  ,foreign key(equipment_serial_number) references EQUIPMENT(serial_number)
+  ,foreign key(package_id) references SHIPPING_CONTAINER(package_id)
+);
+
+CREATE TABLE SHIPMENT(
+   package_id   		INTEGER  NOT NULL 
+  ,drone_serial_number	INTEGER  NOT NULL
+  ,primary key(package_id, drone_serial_number)
+  ,foreign key(drone_serial_number) references DRONE(serial_number)
+  ,foreign key(package_id) references SHIPPING_CONTAINER(package_id)
+);
+
+
+
+CREATE VIEW NUM_EMPLOYEE_MEMBER
+AS	SELECT	COUNT(MEMBER.email)
+	FROM	MEMBER, EMPLOYEE
+	WHERE         EMPLOYEE.email = MEMBER.email ;
+ 
+/*This view provides the total number of employees who are also members of the service.*/
+
+CREATE VIEW AVG_EQUIPMENT_RATING
+AS	SELECT    EQUIPMENT.serial_number AS equipment_num, AVG(rating) AS avg_rating
+	FROM      REVIEW, EQUIPMENT
+	WHERE     REVIEW.serial_number = EQUIPMENT.serial_number
+	GROUP BY EQUIPMENT.serial_number;
+/*This view provides the average rating for each equipment.*/
+
+CREATE VIEW NUM_AVLBLE_DRONE (WarehouseID, Num_drone)
+AS    SELECT	warehouse_id, COUNT(ITEM.serial_number) AS Number_of_Drone
+      FROM		WAREHOUSE, ITEM, DRONE
+      WHERE		WAREHOUSE.warehouse_id = ITEM.warehouse_id 
+            AND	ITEM.serial_number = DRONE.serial_number
+            AND	status = "active"
+      GROUP BY 	WAREHOUSE.warehouse_id;
+/*This view provides the number of available drones for each warehouse.*/
+

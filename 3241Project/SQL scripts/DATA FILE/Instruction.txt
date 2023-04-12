@@ -1,0 +1,2 @@
+1. Copy everything in DATA.txt file and paste into a SQLite command prompt.
+2. Select every line and execute.
