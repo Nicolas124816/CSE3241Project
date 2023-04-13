@@ -18,7 +18,8 @@ public class InputHelper {
         System.out.println("Select one of the options : \n" + "1.) Members \n"
                 + "2.) Warehouses \n" + "3.) Equipment\n" + "4.) Drones \n"
                 + "5.) Reviews \n" + "6.) Employees\n"
-                + "7.) Shipping Containers \n");
+                + "7.) Shipping Containers \n"
+                + "8.) Container Info");
         int option = scan.nextInt();
         scan.nextLine();
         return option;
