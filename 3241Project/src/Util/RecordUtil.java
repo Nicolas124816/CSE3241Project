@@ -22,6 +22,9 @@ public class RecordUtil {
             case 4:
                 DroneRecordUtil.addRecord(scan);
                 break;
+            case 5:
+                ReviewRecordUtil.addRecord(scan);
+                break;
             case 6:
                 EmployeeRecordUtil.addRecord(scan);
                 break;
@@ -47,6 +50,9 @@ public class RecordUtil {
                 break;
             case 4:
                 DroneRecordUtil.deleteRecord(scan);
+                break;
+            case 5:
+                ReviewRecordUtil.deleteRecord(scan);
                 break;
             case 6:
                 EmployeeRecordUtil.deleteRecord(scan);
@@ -74,6 +80,9 @@ public class RecordUtil {
                 break;
             case 4:
                 DroneRecordUtil.updateRecord(scan);
+                break;
+            case 5:
+                ReviewRecordUtil.updateRecord(scan);
                 break;
             case 6:
                 EmployeeRecordUtil.updateRecord(scan);
@@ -103,6 +112,9 @@ public class RecordUtil {
                 break;
             case 4:
                 DroneRecordUtil.searchRecord(scan);
+                break;
+            case 5:
+                ReviewRecordUtil.searchRecord(scan);
                 break;
             case 6:
                 EmployeeRecordUtil.searchRecord(scan);

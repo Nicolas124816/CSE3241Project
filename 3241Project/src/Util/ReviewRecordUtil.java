@@ -12,27 +12,28 @@ import cse3241.DBConnection;
 public class ReviewRecordUtil {
 
     public static void addRecord(Scanner scan) {
-        System.out.println("Enter Review_Number: ");
-        int Review_Number = scan.nextInt();
+        System.out.println("Enter email: ");
+        String email = scan.nextLine();
+        System.out.println("Enter the serial number: ");
+        int serialNumber = scan.nextInt();
+        scan.nextLine();
         System.out.println("Enter rating: ");
         double rating = scan.nextDouble();
+        scan.nextLine();
         System.out.println("Enter the comment: ");
         String comment = scan.nextLine();
-        scan.nextLine();
 
-        Review added = new Review();
-        added.setComment(comment);
-        added.setRating(rating);
-
-        System.out.println("Added new review: \n" + added.toString());
         Connection conn = DBConnection.conn;
         try {
-            PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO Employee (Review_Number, rating, comment) values (?, ?, ?)");
-            stmt.setInt(1, Review_Number);
-            stmt.setDouble(2, rating);
-            stmt.setString(3, comment);
+            PreparedStatement stmt = conn
+                    .prepareStatement("INSERT INTO Review values (?, ?, ?, ?)");
+            stmt.setString(1, email);
+            stmt.setInt(2, serialNumber);
+            stmt.setDouble(3, rating);
+            stmt.setString(4, comment);
             stmt.execute();
+            System.out.println("Added new review for email: " + email
+                    + "and serial number: " + serialNumber);
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -40,23 +41,40 @@ public class ReviewRecordUtil {
     }
 
     public static void deleteRecord(Scanner scan) {
-        Review delete = searchRecord(scan);
+        System.out.println("Enter the email of the review to delete: ");
+        String email = scan.nextLine();
+        System.out
+                .println("Enter the serial number for the review to delete: ");
+        int serialNumber = scan.nextInt();
+        scan.nextLine();
+
         try {
             PreparedStatement stmt1 = DBConnection.conn.prepareStatement(
-                    "DELETE FROM Review WHERE Review_Number=?;");
-            //stmt1.setString(1, delete.getReviewNumber());
+                    "DELETE FROM Review WHERE email=? AND serial_number=?;");
+            stmt1.setString(1, email);
+            stmt1.setInt(2, serialNumber);
             stmt1.execute();
 
-            System.out.println("Deleted Review: \n" + delete.toString());
+            System.out.println("Deleted review with email: " + email
+                    + " and serial number: " + serialNumber);
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public static void updateRecord(Scanner scan) {
-        Review update = searchRecord(scan);
-        System.out.println("Enter Review_Number: ");
-        int Review_Number = scan.nextInt();
+        System.out.println("Enter the email of the review to delete: ");
+        String oldEmail = scan.nextLine();
+        System.out
+                .println("Enter the serial number for the review to delete: ");
+        int oldSerialNumber = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Specify the updated values: ");
+        System.out.println("Enter email: ");
+        String email = scan.nextLine();
+        System.out.println("Enter the serial number");
+        int serialNumber = scan.nextInt();
+        scan.nextLine();
         System.out.println("Enter rating: ");
         double rating = scan.nextDouble();
         System.out.println("Enter the comment: ");
@@ -65,41 +83,49 @@ public class ReviewRecordUtil {
 
         try {
             PreparedStatement stmt = DBConnection.conn.prepareStatement(
-                    "UPDATE Review SET rating = ? , comment = ? WHERE Review_Number = ?");
-            stmt.setDouble(1, rating);
-            stmt.setString(2, comment);
-            stmt.setInt(3, Review_Number);
+                    "UPDATE Review SET email = ? , serial_number = ?, rating=?, comment=? WHERE email=? AND serial_number=?");
+            stmt.setString(1, email);
+            stmt.setInt(2, serialNumber);
+            stmt.setDouble(3, rating);
+            stmt.setString(4, comment);
+            stmt.setString(5, oldEmail);
+            stmt.setInt(6, oldSerialNumber);
             stmt.execute();
 
-            System.out.println("updated review: \n" + update.toString());
+            System.out.println(
+                    "updated review with serial number: " + serialNumber);
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    public static Review searchRecord(Scanner scan) {
-        System.out.println("Specify the review number of the review: ");
-        String reviewNum = scan.nextLine();
+    public static void searchRecord(Scanner scan) {
+        System.out.println("Specify the email of the review: ");
+        String email = scan.nextLine();
+        System.out.println("Specify the serial number of the review: ");
+        int serialNumber = scan.nextInt();
+        scan.nextLine();
         Connection conn = DBConnection.conn;
         Review found = null;
         try {
-            System.out.println(conn.getMetaData());
 
             PreparedStatement stmt = conn.prepareStatement(
-                    "SELECT rating, comment FROM Review WHERE Review_Number=?");
-            stmt.setString(1, reviewNum);
+                    "SELECT * FROM Review WHERE email=? AND serial_number=?");
+            stmt.setString(1, email);
+            stmt.setInt(2, serialNumber);
             ResultSet rSet = stmt.executeQuery();
             rSet.next();
             double rating = rSet.getDouble("rating");
             String comment = rSet.getString("comment");
-            Review newRv = new Review();
-            newRv.setComment(comment);
-            newRv.setRating(rating);
-            return newRv;
+            System.out.println("Found review: ");
+            System.out.println("Email: " + email);
+            System.out.println("Serial number: " + serialNumber);
+            System.out.println("Rating: " + rating);
+            System.out.println("Comment: " + comment);
 
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return found;
+
     }
 }
