@@ -1,3 +1,9 @@
+/* this is a text file containing all of the sql scripts needed to create our database
+schema on an empty database. Copy everything in this text file and paste into a SQLite command prompt, then select every line and execute */
+
+/* Creating tables
+   For a detailed description of each table, see the user manual. */
+
 CREATE TABLE WAREHOUSE(
    warehouse_id INTEGER	    NOT NULL PRIMARY KEY 
   ,city         VARCHAR(13) NOT NULL
@@ -54,7 +60,7 @@ CREATE TABLE ITEM(
   ,order_number  INTEGER
   ,exp_date	     DATE
   ,foreign key(warehouse_id) references WAREHOUSE(warehouse_id)
-  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number)
+  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number) ON UPDATE CASCADE
   ,foreign key(model_number) references ITEM_MODEL(model_number)
 );
 
@@ -75,7 +81,7 @@ CREATE TABLE EQUIPMENT(
   ,weight      	INTEGER  	NOT NULL
   ,size        	VARCHAR(8) 	NOT NULL
   ,order_number 	INTEGER
-  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number)
+  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number) ON UPDATE CASCADE
   ,foreign key(serial_number) references ITEM(serial_number)
 );
 
@@ -131,27 +137,49 @@ CREATE TABLE SHIPMENT(
 );
 
 
+/* Additional indices for faster queries/join response time*/
+
+CREATE INDEX typeindex ON EQUIPMENT (type);
+CREATE INDEX weightindex ON EQUIPMENT (weight);
+-- Create indices for type and weight columns on a EQUIPMENT table
+
+CREATE INDEX widindex ON ITEM (warehouse_id);
+-- Create an index for warehouse_id column on a ITEM table
+
+CREATE INDEX ratingindex ON REVIEW (rating);
+-- Create an index for rating column on a REVIEW table
+
+
+/* Views */
 
 CREATE VIEW NUM_EMPLOYEE_MEMBER
-AS	SELECT	COUNT(MEMBER.email)
+AS	SELECT	COUNT(MEMBER.email) AS Both_member_employee
 	FROM	MEMBER, EMPLOYEE
 	WHERE         EMPLOYEE.email = MEMBER.email ;
  
-/*This view provides the total number of employees who are also members of the service.*/
+--This view provides the total number of employees who are also members of the service
 
 CREATE VIEW AVG_EQUIPMENT_RATING
 AS	SELECT    EQUIPMENT.serial_number AS equipment_num, AVG(rating) AS avg_rating
 	FROM      REVIEW, EQUIPMENT
 	WHERE     REVIEW.serial_number = EQUIPMENT.serial_number
 	GROUP BY EQUIPMENT.serial_number;
-/*This view provides the average rating for each equipment.*/
+--This view provides the average rating for each equipment
 
-CREATE VIEW NUM_AVLBLE_DRONE (WarehouseID, Num_drone)
+CREATE VIEW NUM_AVLBLE_DRONE 
 AS    SELECT	warehouse_id, COUNT(ITEM.serial_number) AS Number_of_Drone
       FROM		WAREHOUSE, ITEM, DRONE
       WHERE		WAREHOUSE.warehouse_id = ITEM.warehouse_id 
             AND	ITEM.serial_number = DRONE.serial_number
             AND	status = "active"
       GROUP BY 	WAREHOUSE.warehouse_id;
-/*This view provides the number of available drones for each warehouse.*/
+--This view provides the number of available drones for each warehouse
 
+CREATE VIEW TOP_THREE_EQUIPMENT
+AS    SELECT serial_number, COUNT(*) AS total
+ FROM   WAREHOUSE_ORDER AS W, EQUIPMENT AS E
+ WHERE  W.order_number = E.order_number
+ GROUP BY E.serial_number
+ ORDER BY total
+ LIMIT 3;
+--This view provides equipments with the top three rental counts
