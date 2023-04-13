@@ -34,6 +34,9 @@ public class RecordUtil {
             case 8:
                 ContainerInfoRecordUtil.addRecord(scan);
                 break;
+            case 9:
+                WarehouseOrderRecordUtil.addRecord(scan);
+                break;
             default:
                 System.out.println("You entered an incorrect entity option");
                 break;
@@ -67,6 +70,9 @@ public class RecordUtil {
             case 8:
                 ContainerInfoRecordUtil.deleteRecord(scan);
                 break;
+            case 9:
+                WarehouseOrderRecordUtil.deleteRecord(scan);
+                break;
             default:
                 System.out.println("You entered an incorrect entity option");
                 break;
@@ -99,6 +105,9 @@ public class RecordUtil {
                 break;
             case 8:
                 ContainerInfoRecordUtil.updateRecord(scan);
+                break;
+            case 9:
+                WarehouseOrderRecordUtil.updateRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option");
@@ -134,6 +143,9 @@ public class RecordUtil {
                 break;
             case 8:
                 ContainerInfoRecordUtil.searchRecord(scan);
+                break;
+            case 9:
+                WarehouseOrderRecordUtil.searchRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option\n");
