@@ -40,6 +40,9 @@ public class RecordUtil {
             case 10:
                 WorkplaceRecordUtil.addRecord(scan);
                 break;
+            case 11:
+                RentsRecordUtil.addRecord(scan);
+                break;
             default:
                 System.out.println("You entered an incorrect entity option");
                 break;
@@ -79,6 +82,9 @@ public class RecordUtil {
             case 10: 
                 WorkplaceRecordUtil.deleteRecord(scan);
                 break;
+            case 11:
+                RentsRecordUtil.deleteRecord(scan);
+                break;
             default:
                 System.out.println("You entered an incorrect entity option");
                 break;
@@ -117,6 +123,9 @@ public class RecordUtil {
                 break;
             case 10:
                 WorkplaceRecordUtil.updateRecord(scan);
+                break;
+            case 11:
+                RentsRecordUtil.updateRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option");
@@ -158,6 +167,9 @@ public class RecordUtil {
                 break;
             case 10:
                 WorkplaceRecordUtil.searchRecord(scan);
+                break;
+            case 11:
+                RentsRecordUtil.searchRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option\n");
