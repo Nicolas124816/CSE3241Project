@@ -5,7 +5,6 @@ import java.util.Scanner;
 import Entities.Employee;
 import Entities.Equipment;
 import Entities.Member;
-import Entities.Warehouse;
 import Input.InputHelper;
 
 public class RecordUtil {
@@ -17,7 +16,7 @@ public class RecordUtil {
                 MemberRecordUtil.addRecord(scan);
                 break;
             case 2:
-                WarehouseRecordUtil.addRecord();
+                WarehouseRecordUtil.addRecord(scan);
                 break;
             case 3:
                 EquipmentRecordUtil.addRecord();
@@ -38,7 +37,7 @@ public class RecordUtil {
                 MemberRecordUtil.deleteRecord(scan);
                 break;
             case 2:
-                WarehouseRecordUtil.deleteRecord();
+                WarehouseRecordUtil.deleteRecord(scan);
                 break;
             case 3:
                 EquipmentRecordUtil.deleteRecord();
@@ -59,7 +58,7 @@ public class RecordUtil {
                 MemberRecordUtil.updateRecord(scan);
                 break;
             case 2:
-                WarehouseRecordUtil.updateRecord();
+                WarehouseRecordUtil.updateRecord(scan);
                 break;
             case 3:
                 EquipmentRecordUtil.updateRecord();
@@ -81,9 +80,7 @@ public class RecordUtil {
                 System.out.println("Found member: \n" + foundMember.toString());
                 break;
             case 2:
-                Warehouse foundWarehouse = WarehouseRecordUtil.searchRecord();
-                System.out.println(
-                        "Found warehouse: \n:" + foundWarehouse.toString());
+                WarehouseRecordUtil.searchRecord(scan);
                 break;
             case 3:
                 Equipment foundEquipment = EquipmentRecordUtil.searchRecord();

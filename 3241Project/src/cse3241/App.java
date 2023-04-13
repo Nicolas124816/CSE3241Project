@@ -1,9 +1,5 @@
 package cse3241;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import Input.InputHelper;
@@ -14,27 +10,9 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
-        String url = "jdbc:sqlite:" + "checkpoint4.db";
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-            if (conn != null) {
-                // Provides some positive assurance the connection and/or creation was successful.
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out
-                        .println("The driver name is " + meta.getDriverName());
-                System.out.println(
-                        "The connection to the database was successful.");
-            } else {
-                // Provides some feedback in case the connection failed but did not throw an exception.
-                System.out.println("Null Connection");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            System.out
-                    .println("There was a problem connecting to the database.");
-        }
-        DBConnection.setConn(conn);
+
+        DBConnection.establishConn();
+
         while (true) {
             int operation = InputHelper.getOperationOption(scan);
             switch (operation) {
@@ -52,6 +30,11 @@ public class App {
                     break;
                 case 5:
                     ExtraQueries.runExtraQueries(scan);
+                    break;
+                case 6:
+                    System.out.println("Shutting down...");
+                    System.out.println("Shut down successfully. ");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println(

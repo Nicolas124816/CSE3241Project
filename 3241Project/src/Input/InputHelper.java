@@ -5,20 +5,19 @@ import java.util.Scanner;
 public class InputHelper {
 
     public static int getOperationOption(Scanner scan) {
-        System.out.println(
-                "Select one of the options (1, 2, or 3): \n1.) Add New Records"
-                        + "\n2.) Delete Existing Records \n3.) Search Existing Records"
-                        + "\n4.) Update Existing Records"
-                        + "\n5.) Run Extra Queries");
+        System.out.println("Select one of the options : \n1.) Add New Records"
+                + "\n2.) Delete Existing Records \n3.) Search Existing Records"
+                + "\n4.) Update Existing Records" + "\n5.) Run Extra Queries"
+                + "\n6.) Quit The Program");
         int option = scan.nextInt();
         scan.nextLine();
         return option;
     }
 
     public static int getEntityOption(Scanner scan) {
-        System.out.println("Select one of the options (1, 2, or 3): \n"
-                + "1.) Members \n" + "2.) Warehouses \n" + "3.) Equipment\n"
-                + "4.) Drones \n" + "5.) Reviews \n" + "6.) Employees\n"
+        System.out.println("Select one of the options : \n" + "1.) Members \n"
+                + "2.) Warehouses \n" + "3.) Equipment\n" + "4.) Drones \n"
+                + "5.) Reviews \n" + "6.) Employees\n"
                 + "7.) Shipping Containers \n");
         int option = scan.nextInt();
         scan.nextLine();

@@ -15,8 +15,8 @@ public class DBConnection {
 
     public static void establishConn() {
         try {
-            conn = DriverManager
-                    .getConnection("jdbc:sqlite:" + "checkpoint4.db");
+            conn = DriverManager.getConnection(
+                    "jdbc:sqlite:" + "Database File/Database.db");
             if (conn != null) {
                 // Provides some positive assurance the connection and/or creation was successful.
                 DatabaseMetaData meta = conn.getMetaData();
