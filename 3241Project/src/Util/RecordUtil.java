@@ -2,7 +2,6 @@ package Util;
 
 import java.util.Scanner;
 
-import Entities.Equipment;
 import Entities.Member;
 import Input.InputHelper;
 
@@ -18,7 +17,7 @@ public class RecordUtil {
                 WarehouseRecordUtil.addRecord(scan);
                 break;
             case 3:
-                EquipmentRecordUtil.addRecord();
+                EquipmentRecordUtil.addRecord(scan);
                 break;
             case 4:
                 DroneRecordUtil.addRecord(scan);
@@ -42,7 +41,7 @@ public class RecordUtil {
                 WarehouseRecordUtil.deleteRecord(scan);
                 break;
             case 3:
-                EquipmentRecordUtil.deleteRecord();
+                EquipmentRecordUtil.deleteRecord(scan);
                 break;
             case 4:
                 DroneRecordUtil.deleteRecord(scan);
@@ -66,7 +65,7 @@ public class RecordUtil {
                 WarehouseRecordUtil.updateRecord(scan);
                 break;
             case 3:
-                EquipmentRecordUtil.updateRecord();
+                EquipmentRecordUtil.updateRecord(scan);
                 break;
             case 4:
                 DroneRecordUtil.updateRecord(scan);
@@ -91,9 +90,8 @@ public class RecordUtil {
                 WarehouseRecordUtil.searchRecord(scan);
                 break;
             case 3:
-                Equipment foundEquipment = EquipmentRecordUtil.searchRecord();
-                System.out.println(
-                        "Found equipment: \n" + foundEquipment.toString());
+                EquipmentRecordUtil.searchRecord(scan);
+
                 break;
             case 4:
                 DroneRecordUtil.searchRecord(scan);

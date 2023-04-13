@@ -192,7 +192,7 @@ public class DroneRecordUtil {
             PreparedStatement stmt1 = DBConnection.conn
                     .prepareStatement("UPDATE Drone"
                             + "SET serial_number=?, weight_capacity=?, volume_capacity=?, distance_autonomy=?, max_speed=?, status=?, fleet_id=?"
-                            + "WHERE warehouse_id=?;");
+                            + "WHERE serial_number=?;");
             stmt1.setInt(1, serial_num);
             stmt1.setInt(2, weightCapacity);
             stmt1.setInt(3, volumeCapacity);
@@ -216,7 +216,9 @@ public class DroneRecordUtil {
             stmt2.execute();
 
             PreparedStatement stmt3 = conn.prepareStatement(
-                    "INSERT INTO Item_Model values (?, ?, ?)");
+                    "UPDATE Item_Model"
+                    + "SET model_number=?, year=?, manufacturer=?"
+                    + "WHERE model_number=?");
             stmt3.setInt(1, modelNumber);
             stmt3.setInt(2, year);
             stmt3.setString(3, manufacturer);
