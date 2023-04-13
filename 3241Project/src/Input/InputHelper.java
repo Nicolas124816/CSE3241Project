@@ -22,7 +22,8 @@ public class InputHelper {
                 + "8.) Container Info\n"
                 + "9.) Warehouse order\n"
                 + "10.) Workplace\n"
-                + "11.) Rents");
+                + "11.) Rents\n"
+                + "12.) Shipment");
         int option = scan.nextInt();
         scan.nextLine();
         return option;
