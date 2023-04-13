@@ -294,6 +294,9 @@ INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (17,80,
 INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (18,80,90,'Aluminum');
 INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (19,80,90,'Aluminum');
 INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (20,80,90,'Aluminum');
+INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (21,80,90,'Aluminum');
+INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (22,20,20,'Cardboard');
+INSERT INTO SHIPPING_CONTAINER(package_id,volume,weight,material) VALUES (23,10,5,'Plastic');
 
 INSERT INTO WORKPLACE(email,warehouse_id) VALUES ('alexbook@gmail.com',1);
 INSERT INTO WORKPLACE(email,warehouse_id) VALUES ('nickashbaugh@gmail.com',2);
