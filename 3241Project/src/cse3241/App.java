@@ -33,6 +33,7 @@ public class App {
                     break;
                 case 6:
                     System.out.println("Shutting down...");
+                    DBConnection.closeConn();
                     System.out.println("Shut down successfully. ");
                     System.exit(0);
                     break;

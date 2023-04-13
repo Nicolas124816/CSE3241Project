@@ -35,4 +35,12 @@ public class DBConnection {
         }
     }
 
+    public static void closeConn() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 }

@@ -2,7 +2,6 @@ package Util;
 
 import java.util.Scanner;
 
-import Entities.Employee;
 import Entities.Equipment;
 import Entities.Member;
 import Input.InputHelper;
@@ -49,7 +48,7 @@ public class RecordUtil {
                 DroneRecordUtil.deleteRecord(scan);
                 break;
             case 6:
-                EmployeeRecordUtil.addRecord(scan);
+                EmployeeRecordUtil.deleteRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option");
@@ -100,8 +99,7 @@ public class RecordUtil {
                 DroneRecordUtil.searchRecord(scan);
                 break;
             case 6:
-                Employee emp = EmployeeRecordUtil.searchRecord(scan);
-                System.out.println("Found employee: " + emp.toString());
+                EmployeeRecordUtil.searchRecord(scan);
                 break;
             default:
                 System.out.println("You entered an incorrect entity option\n");
