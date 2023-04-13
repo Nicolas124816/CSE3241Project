@@ -6,67 +6,47 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Entities.Drone;
-import Entities.Superclasses.Item;
-import Input.DateHelper;
 import cse3241.DBConnection;
 
 public class DroneRecordUtil {
 
     public static void addRecord(Scanner scan) {
-        System.out.println("Enter inventoryID: ");
-        int inventoryID = scan.nextInt();
-        System.out.println("Enter the expDate(yyyy-MM-dd): ");
-        String expDate = scan.nextLine();
-        System.out.println("Enter description: ");
-        String description = scan.nextLine();
-        System.out.println("Enter manufacturer: ");
-        String manufacturer = scan.nextLine();
-        System.out.println("Enter modelNumber: ");
-        int modelNumber = scan.nextInt();
-        System.out.println("Enter year: ");
-        int year = scan.nextInt();
-        System.out.println("Enter the serialNumber: ");
-        int serialNumber = scan.nextInt();
-        System.out.println("Enter fleetID: ");
-        int fleetID = scan.nextInt();
-        System.out.println("Enter the weightCapacity: ");
-        double weightCapacity = scan.nextDouble();
-        System.out.println("Enter the volumeCapacity: ");
-        double volumeCapacity = scan.nextDouble();
-        System.out.println("Enter distanceAutonomy: ");
-        double distanceAutonomy = scan.nextDouble();
-        System.out.println("Enter maxSpeed: ");
-        double maxSpeed = scan.nextDouble();
-        System.out.println("Enter status: ");
-        String status = scan.nextLine();
+        System.out.println("Enter drone serial number: ");
+        int serial_num = scan.nextInt();
         scan.nextLine();
-        Item DroneItem = new Item(inventoryID, expDate, description,
-                manufacturer, modelNumber, year, serialNumber);
-        Drone added = new Drone(DroneItem);
-        System.out.println("Added new drone: \n" + added.toString());
+        System.out.println("Enter the weight capacity (int): ");
+        int weightCapacity = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the volume capacity (int): ");
+        int volumeCapacity = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the autonomous distance (int): ");
+        int distanceAutonomy = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the drone max speed (int): ");
+        int speed = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the drone status: ");
+        String status = scan.nextLine();
+        System.out.println("Enter the drone's fleet id (int): ");
+        int fleetId = scan.nextInt();
+        scan.nextLine();
+
         Connection conn = DBConnection.conn;
         try {
             PreparedStatement stmt1 = conn.prepareStatement(
-                    "INSERT INTO Item (inventoryID, Exp_Date,description, manufacturer, Model_Number, year, Serial_Number) values (?, ?, ?, ?, ?, ?, ?)");
-            stmt1.setInt(1, inventoryID);
-            stmt1.setDate(2, DateHelper.getDate(expDate));
-            stmt1.setString(3, description);
-            stmt1.setString(4, manufacturer);
-            stmt1.setInt(5, modelNumber);
-            stmt1.setInt(6, year);
-            stmt1.setInt(7, serialNumber);
-            stmt1.execute();
-
-            PreparedStatement stmt2 = conn.prepareStatement(
-                    "INSERT INTO Drone (fleetID, Weight_Capacity, Volume_Capacity, Distance_Autonomy, max_Speed, status) values (?, ?, ?, ?, ?, ?)");
-            stmt2.setInt(1, fleetID);
-            stmt2.setDouble(2, weightCapacity);
-            stmt2.setDouble(3, volumeCapacity);
-            stmt2.setDouble(4, distanceAutonomy);
-            stmt2.setDouble(5, maxSpeed);
+                    "INSERT INTO Drone values (?, ?, ?, ?, ?, ?, ?)");
+            stmt1.setInt(1, serial_num);
+            stmt1.setInt(2, weightCapacity);
+            stmt1.setInt(3, volumeCapacity);
+            stmt1.setInt(4, distanceAutonomy);
+            stmt1.setInt(5, speed);
             stmt1.setString(6, status);
-            stmt2.execute();
+            stmt1.setInt(7, fleetId);
+            stmt1.execute();
+            System.out.println(
+                    "Added new drone with serial number: " + serial_num);
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -74,59 +54,105 @@ public class DroneRecordUtil {
     }
 
     public static void deleteRecord(Scanner scan) {
-        Drone delete = searchRecord(scan);
+        System.out
+                .println("Specify the serial number of the drone to delete: ");
+        int serial_num = scan.nextInt();
+        scan.nextLine();
+
         try {
-            PreparedStatement stmt1 = DBConnection.conn
-                    .prepareStatement("DELETE FROM Item WHERE serialNumber=?;");
-            stmt1.setInt(1, delete.getSerialNumber());
+
+            PreparedStatement stmt1 = DBConnection.conn.prepareStatement(
+                    "DELETE FROM Drone WHERE serial_number=?;");
+            stmt1.setInt(1, serial_num);
             stmt1.execute();
 
-            System.out.println("Deleted drone: \n" + delete.toString());
+            System.out.println("Deleted drone with id: " + serial_num);
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public static void updateRecord(Scanner scan) {
-        Drone update = searchRecord(scan);
-        //modify drone object and store in database
+        System.out
+                .println("Specify the serial number of the drone to update: ");
+        int serial_number = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Specify new values for the record: ");
+        System.out.println("Enter drone serial number: ");
+        int serial_num = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the weight capacity (int): ");
+        int weightCapacity = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the volume capacity (int): ");
+        int volumeCapacity = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the autonomous distance (int): ");
+        int distanceAutonomy = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the drone max speed (int): ");
+        int speed = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the drone status: ");
+        String status = scan.nextLine();
+        System.out.println("Enter the drone's fleet id (int): ");
+        int fleetId = scan.nextInt();
+        scan.nextLine();
+
+        try {
+
+            PreparedStatement stmt1 = DBConnection.conn
+                    .prepareStatement("UPDATE Drone"
+                            + "SET serial_number=? weight_capacity=?, volume_capacity=?, distance_autonomy=?, max_speed=?, status=?, fleet_id=?"
+                            + "WHERE warehouse_id=?;");
+            stmt1.setInt(1, serial_number);
+            stmt1.setInt(2, weightCapacity);
+            stmt1.setInt(3, volumeCapacity);
+            stmt1.setInt(4, distanceAutonomy);
+            stmt1.setInt(5, speed);
+            stmt1.setString(6, status);
+            stmt1.setInt(7, fleetId);
+            stmt1.execute();
+
+            System.out.println(
+                    "Deleted drone with serial number: " + serial_number);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
-    public static Drone searchRecord(Scanner scan) {
-        System.out.println("Specify the serialNumber of the drone: ");
-        int serialNumber = scan.nextInt();
-        Connection conn = DBConnection.conn;
-        Drone found = null;
+    public static void searchRecord(Scanner scan) {
+        System.out
+                .println("Specify the serial number of the drone to search: ");
+        int serial_number = scan.nextInt();
+        scan.nextLine();
+
         try {
-            System.out.println(conn.getMetaData());
-            PreparedStatement stmt1 = conn.prepareStatement(
-                    "SELECT inventoryID, Exp_Date,description, manufacturer, Model_Number, year\n WHERE Serial_Number=?");
-            stmt1.setInt(1, serialNumber);
+
+            PreparedStatement stmt1 = DBConnection.conn.prepareStatement(
+                    "SELECT * FROM Drone\n WHERE serial_number=?");
+            stmt1.setInt(1, serial_number);
             ResultSet rSet = stmt1.executeQuery();
             rSet.next(); //only one entry will be returned, searching by key
-            int inventoryID = rSet.getInt("inventoryID");
-            String expDate = rSet.getString("Exp_Date");
-            String description = rSet.getString("description");
-            String manufacturer = rSet.getString("manufacturer");
-            int modelNumber = rSet.getInt("Model_Number");
-            int year = rSet.getInt("year");
-
-            /*
-             * PreparedStatement stmt2 = conn.prepareStatement(
-             * "SELECT status, Weight_Capacity, Volume_Capacity FROM Drone WHERE Serial_Number=?"
-             * ); stmt2.setInt(1, serialNumber); rSet = stmt2.executeQuery();
-             * rSet.next(); String status = rSet.getString("status"); double
-             * weightCapacity = rSet.getDouble("Weight_Capacity"); double
-             * volumeCapacity = rSet.getDouble("Volume_Capacity");
-             */
-
-            Item n = new Item(inventoryID, expDate, description, manufacturer,
-                    modelNumber, year, serialNumber);
-            return new Drone(n);
+            int weightCapacity = rSet.getInt("weight_capacity");
+            int volumeCapacity = rSet.getInt("volume_capacity");
+            int distanceAutonomy = rSet.getInt("distance_autonomy");
+            int speed = rSet.getInt("max_speed");
+            String status = rSet.getString("status");
+            int fleetId = rSet.getInt("fleet_id");
+            rSet.close();
+            stmt1.close();
+            System.out.println("Found drone: ");
+            System.out.println("Serial number: " + serial_number);
+            System.out.println("weight capacity: " + weightCapacity);
+            System.out.println("volume capacity: " + volumeCapacity);
+            System.out.println("distance autonomy: " + distanceAutonomy);
+            System.out.println("max speed: " + speed);
+            System.out.println("status: " + status);
+            System.out.println("fleet id: " + fleetId);
 
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return found;
     }
 }

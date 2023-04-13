@@ -21,6 +21,9 @@ public class RecordUtil {
             case 3:
                 EquipmentRecordUtil.addRecord();
                 break;
+            case 4:
+                DroneRecordUtil.addRecord(scan);
+                break;
             case 6:
                 EmployeeRecordUtil.addRecord(scan);
                 break;
@@ -42,6 +45,9 @@ public class RecordUtil {
             case 3:
                 EquipmentRecordUtil.deleteRecord();
                 break;
+            case 4:
+                DroneRecordUtil.deleteRecord(scan);
+                break;
             case 6:
                 EmployeeRecordUtil.addRecord(scan);
                 break;
@@ -62,6 +68,9 @@ public class RecordUtil {
                 break;
             case 3:
                 EquipmentRecordUtil.updateRecord();
+                break;
+            case 4:
+                DroneRecordUtil.updateRecord(scan);
                 break;
             case 6:
                 EmployeeRecordUtil.updateRecord(scan);
@@ -86,6 +95,9 @@ public class RecordUtil {
                 Equipment foundEquipment = EquipmentRecordUtil.searchRecord();
                 System.out.println(
                         "Found equipment: \n" + foundEquipment.toString());
+                break;
+            case 4:
+                DroneRecordUtil.searchRecord(scan);
                 break;
             case 6:
                 Employee emp = EmployeeRecordUtil.searchRecord(scan);

@@ -86,7 +86,7 @@ public class WarehouseRecordUtil {
             stmt1.setString(3, address);
             stmt1.setString(4, phone);
             stmt1.setString(5, manager);
-            stmt1.execute();
+            stmt1.setInt(6, oldID);
             stmt1.execute();
 
             System.out.println("Deleted warehouse with id: " + id);
