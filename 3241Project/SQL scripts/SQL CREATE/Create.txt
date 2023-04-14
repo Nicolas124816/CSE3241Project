@@ -88,7 +88,7 @@ CREATE TABLE EQUIPMENT(
 CREATE TABLE REVIEW(
    email   	    	VARCHAR(27) 	NOT NULL 
   ,serial_number 	INTEGER 		NOT NULL
-  ,rating       	NUMERIC(3,1) 	NOT NULL
+  ,rating       	NUMERIC(3,1) 	NOT NULL CHECK (rating>=0 AND rating <=10)
   ,comment      	VARCHAR(38) 	NOT NULL
   ,primary key(email, serial_number)
   ,foreign key(serial_number) references EQUIPMENT(serial_number)
