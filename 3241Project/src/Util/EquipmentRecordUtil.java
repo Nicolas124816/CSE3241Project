@@ -44,7 +44,6 @@ public class EquipmentRecordUtil {
         scan.nextLine();
         System.out.println("Enter the size (int): ");
         String size = scan.nextLine();
-        
 
         Connection conn = DBConnection.conn;
         try {
@@ -112,16 +111,16 @@ public class EquipmentRecordUtil {
             stmt3.setInt(1, modelNumber);
             stmt3.execute();
 
-            System.out
-                    .println("Deleted equipment with serial number: " + serial_num);
+            System.out.println(
+                    "Deleted equipment with serial number: " + serial_num);
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public static void updateRecord(Scanner scan) {
-        System.out
-                .println("Specify the serial number of the equipment to update: ");
+        System.out.println(
+                "Specify the serial number of the equipment to update: ");
         int oldSerial = scan.nextInt();
         scan.nextLine();
         System.out.println("Specify new values for the record: ");
@@ -155,7 +154,7 @@ public class EquipmentRecordUtil {
         System.out.println("Enter the weight (int): ");
         int weight = scan.nextInt();
         scan.nextLine();
-        System.out.println("Enter the size (int): ");
+        System.out.println("Enter the size: ");
         String size = scan.nextLine();
 
         Connection conn = DBConnection.conn;
@@ -170,18 +169,18 @@ public class EquipmentRecordUtil {
 
             PreparedStatement stmt1 = DBConnection.conn
                     .prepareStatement("UPDATE Equipment"
-                            + "SET serial_number=?, type=?, weight=?, size=?, order_number=?, status=?, fleet_id=?"
+                            + "SET serial_number=?, type=?, weight=?, size=?, order_number=?, status=?, fleet_id=?\n"
                             + "WHERE serial_number=?;");
             stmt1.setInt(1, serial_num);
             stmt1.setString(2, type);
             stmt1.setInt(3, weight);
             stmt1.setString(4, size);
             stmt1.setNull(5, java.sql.Types.NULL); //order num null by default
-            stmt1.setInt(6, oldSerial); //order num null by default
+            stmt1.setInt(6, oldSerial);
             stmt1.execute();
 
             PreparedStatement stmt2 = conn.prepareStatement("UPDATE Item "
-                    + "SET serial_number=?, model_number=?, description=?, warehouse_id=?, order_number=?, exp_date=?"
+                    + "SET serial_number=?, model_number=?, description=?, warehouse_id=?, order_number=?, exp_date=?\n"
                     + "WHERE serial_number=?");
             stmt2.setInt(1, serial_num);
             stmt2.setInt(2, modelNumber);
@@ -192,9 +191,8 @@ public class EquipmentRecordUtil {
             stmt2.setInt(7, oldSerial);
             stmt2.execute();
 
-            PreparedStatement stmt3 = conn.prepareStatement(
-                    "UPDATE Item_Model"
-                    + "SET model_number=?, year=?, manufacturer=?"
+            PreparedStatement stmt3 = conn.prepareStatement("UPDATE Item_Model"
+                    + "SET model_number=?, year=?, manufacturer=?\n"
                     + "WHERE model_number=?");
             stmt3.setInt(1, modelNumber);
             stmt3.setInt(2, year);
@@ -202,16 +200,16 @@ public class EquipmentRecordUtil {
             stmt3.setInt(4, oldModelNumber);
             stmt3.execute();
 
-            System.out
-                    .println("Updated equipment with serial number: " + serial_num);
+            System.out.println(
+                    "Updated equipment with serial number: " + serial_num);
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public static void searchRecord(Scanner scan) {
-        System.out
-                .println("Specify the serial number of the equipment to search: ");
+        System.out.println(
+                "Specify the serial number of the equipment to search: ");
         int serial_number = scan.nextInt();
         scan.nextLine();
         Connection conn = DBConnection.conn;

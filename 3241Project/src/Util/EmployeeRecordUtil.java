@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Entities.Employee;
 import Input.DateHelper;
 import cse3241.DBConnection;
 
@@ -31,7 +30,6 @@ public class EmployeeRecordUtil {
         System.out
                 .println("Enter the start date (yyyy-MM-dd) of the employee: ");
         String std = scan.nextLine();
-        
 
         Connection conn = DBConnection.conn;
         try {
@@ -101,7 +99,6 @@ public class EmployeeRecordUtil {
         System.out
                 .println("Enter the start date (yyyy-MM-dd) of the employee: ");
         String std = scan.nextLine();
-        scan.nextLine();
 
         try {
             PreparedStatement stmt1 = DBConnection.conn.prepareStatement(
@@ -113,7 +110,8 @@ public class EmployeeRecordUtil {
             stmt1.setString(5, email);
             stmt1.execute();
 
-            PreparedStatement stmt2 = DBConnection.conn.prepareStatement("UPDATE Person SET email=?, first_name=? , last_name = ? , address = ?, phone=? WHERE email = ?");
+            PreparedStatement stmt2 = DBConnection.conn.prepareStatement(
+                    "UPDATE Person SET email=?, first_name=? , last_name = ? , address = ?, phone=? WHERE email = ?");
             stmt2.setString(1, email);
             stmt2.setString(2, firstName);
             stmt2.setString(3, lastName);
@@ -132,9 +130,9 @@ public class EmployeeRecordUtil {
         String email = scan.nextLine();
         Connection conn = DBConnection.conn;
         try {
-            
-            PreparedStatement stmt1 = conn.prepareStatement(
-                    "SELECT * FROM Person WHERE Email=?");
+
+            PreparedStatement stmt1 = conn
+                    .prepareStatement("SELECT * FROM Person WHERE Email=?");
             stmt1.setString(1, email);
             ResultSet rSet = stmt1.executeQuery();
             rSet.next();
@@ -144,8 +142,8 @@ public class EmployeeRecordUtil {
             int phone = rSet.getInt("phone");
             rSet.close();
 
-            PreparedStatement stmt2 = conn.prepareStatement(
-                    "SELECT * FROM Employee WHERE Email=?");
+            PreparedStatement stmt2 = conn
+                    .prepareStatement("SELECT * FROM Employee WHERE Email=?");
             stmt2.setString(1, email);
             rSet = stmt2.executeQuery();
             rSet.next();
@@ -162,10 +160,9 @@ public class EmployeeRecordUtil {
             System.out.println("Start Date: " + startDate);
             System.out.println("Position: " + position);
 
-
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
     }
 }
