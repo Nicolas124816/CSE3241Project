@@ -21,10 +21,10 @@ CREATE TABLE PERSON(
 );
 
 CREATE TABLE MEMBER(
-   email      VARCHAR(27) NOT NULL PRIMARY KEY
+   email      VARCHAR(27) NOT NULL PRIMARY KEY 
   ,start_date DATE  	  NOT NULL
   ,user_id    INTEGER  	  NOT NULL,
-foreign key(email) references PERSON(email)
+foreign key(email) references PERSON(email) ON DELETE CASCADE
 );
 
 CREATE TABLE EMPLOYEE(
@@ -32,7 +32,7 @@ CREATE TABLE EMPLOYEE(
   ,salary     INTEGER     NOT NULL
   ,start_date DATE  	  NOT NULL
   ,position   VARCHAR(15) NOT NULL,
-foreign key(email) references PERSON(email)
+foreign key(email) references PERSON(email) ON DELETE CASCADE
 );
 
 CREATE TABLE WAREHOUSE_ORDER(
@@ -60,7 +60,7 @@ CREATE TABLE ITEM(
   ,order_number  INTEGER
   ,exp_date	     DATE
   ,foreign key(warehouse_id) references WAREHOUSE(warehouse_id)
-  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number) ON UPDATE CASCADE
+  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number)
   ,foreign key(model_number) references ITEM_MODEL(model_number)
 );
 
@@ -81,7 +81,7 @@ CREATE TABLE EQUIPMENT(
   ,weight      	INTEGER  	NOT NULL
   ,size        	VARCHAR(8) 	NOT NULL
   ,order_number 	INTEGER
-  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number) ON UPDATE CASCADE
+  ,foreign key(order_number) references WAREHOUSE_ORDER(order_number)
   ,foreign key(serial_number) references ITEM(serial_number)
 );
 
@@ -106,7 +106,7 @@ CREATE TABLE WORKPLACE(
    email       	VARCHAR(27) NOT NULL
   ,warehouse_id 	INTEGER  	NOT NULL
   ,primary key(email, warehouse_id)
-  ,foreign key(email) references EMPLOYEE(email)
+  ,foreign key(email) references EMPLOYEE(email) ON DELETE CASCADE
   ,foreign key(warehouse_id) references WAREHOUSE(warehouse_id)
 );
 
@@ -116,7 +116,7 @@ CREATE TABLE RENTS(
   ,checkout_date 	DATE		NOT NULL
   ,return_date   	DATE   	NOT NULL
   ,primary key(email, serial_number)
-  ,foreign key(email) references MEMBER(email)
+  ,foreign key(email) references MEMBER(email) ON DELETE CASCADE
   ,foreign key(serial_number) references EQUIPMENT(serial_number)
 );
 
