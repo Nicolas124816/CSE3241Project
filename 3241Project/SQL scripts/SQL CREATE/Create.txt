@@ -23,7 +23,7 @@ CREATE TABLE PERSON(
 CREATE TABLE MEMBER(
    email      VARCHAR(27) NOT NULL PRIMARY KEY 
   ,start_date DATE  	  NOT NULL
-  ,user_id    INTEGER  	  NOT NULL,
+  ,user_id    INTEGER  	  NOT NULL UNIQUE,
 foreign key(email) references PERSON(email) ON DELETE CASCADE
 );
 
